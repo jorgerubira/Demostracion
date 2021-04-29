@@ -73,7 +73,5 @@ namespace Demostracion.Controllers
             return View(lista);
         }
 
-        
-
     }
 }

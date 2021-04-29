@@ -25,7 +25,7 @@
         </div>
         <div class="col-7">
             <select name="HospitalId" class="form-control" asp-items="ViewBag.Hospitales">
-                <option>Todos</option>    
+                <option>Todos</option>
             </select><br />
         </div>
     </div>
@@ -33,12 +33,9 @@
 </form>
 
 <!--Mostrar el resultado-->
-
-
-
 @if (Model != null)
 {
-    <hr/>
+    <hr />
     <table class="table table-striped">
         <tr>
             <th>
@@ -60,8 +57,72 @@
             </tr>
         }
     </table>
+    <hr/>
+    <div id="grafica"></div>
 }
 else
 {
     <b>Pulse consultar para ver los datos</b>
+}
+
+
+
+
+@section Scripts{ 
+    @if (Model != null)
+    {
+        <script>
+            Highcharts.chart('grafica', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Media diaria de camas ocupadas por hospital'
+                },
+                xAxis: {
+                    categories: [
+                        @foreach (DemostracionViewData row in Model)
+                        {
+                            <text>
+                                '@row.Hospital',
+                            </text>
+                        }
+                    ]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Camas',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' camas'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+
+                credits: { enabled: false },
+                series: [{
+                    name: 'Camas',
+                    data: [
+                        @foreach (DemostracionViewData row in Model)
+                        {
+                            <text>
+                                @row.Camas,
+                            </text>
+                        }
+                    ]
+                }]
+            });
+        </script>
+    }
 }
