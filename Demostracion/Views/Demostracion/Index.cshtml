@@ -1,0 +1,67 @@
+﻿@model List<DemostracionViewData>
+@using Demostracion.ViewData
+@using Demostracion.Models
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Media diaria de camas ocupadas por hospital</h1>
+
+<!--Entrada de parametros-->
+<form asp-action="Index">
+    <div class="row">
+        <div class="col-1">
+            Provincia:
+        </div>
+        <div class="col-3">
+            <select name="ProvinciaId" class="form-control" asp-items="ViewBag.Provincias">
+                <option>Todos</option>
+            </select><br />
+        </div>
+        <div class="col-1">
+            Hospital
+        </div>
+        <div class="col-7">
+            <select name="HospitalId" class="form-control" asp-items="ViewBag.Hospitales">
+                <option>Todos</option>    
+            </select><br />
+        </div>
+    </div>
+    <input type="submit" value="Consultar" />
+</form>
+
+<!--Mostrar el resultado-->
+
+
+
+@if (Model != null)
+{
+    <hr/>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Hospital
+            </th>
+            <th>
+                Camas
+            </th>
+        </tr>
+        @foreach (DemostracionViewData row in Model)
+        {
+            <tr>
+                <td>
+                    @row.Hospital
+                </td>
+                <td>
+                    @row.Camas
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <b>Pulse consultar para ver los datos</b>
+}
