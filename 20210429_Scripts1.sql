@@ -8211,13 +8211,4 @@ FROM cov_h_camas c;
 
 ALTER TABLE cov_h_camas DROP COLUMN provincia;
 ALTER TABLE cov_h_camas DROP COLUMN municipio;
-
-ALTER TABLE cov_h_camas ADD id_hospital INT NOT NULL;
-UPDATE cov_h_camas SET id_hospital = (SELECT id FROM cov_m_hospitales h WHERE h.hospital = cov_h_camas.hospital)
-ALTER TABLE cov_h_camas ADD CONSTRAINT fk_hospital FOREIGN KEY (id_hospital) REFERENCES cov_m_hospitales(id);
-
-
-ALTER TABLE cov_h_camas DROP COLUMN hospital;
-
-
-
+ALTER TABLE cov_h_camas ADD id_hospital INT;

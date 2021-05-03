@@ -1,0 +1,115 @@
+﻿@using Demostracion.ViewData
+@model List<MiListadoViewData>
+
+<form asp-action="Index">
+    <div class="row">
+        <div class="col-2">
+            Año:
+        </div>
+        <div class="col-2">
+            <input name="anio" class="form-control" value="@ViewBag.Anio" />
+        </div>
+        <div class="col-2">
+            Municipio:
+        </div>
+        <div class="col-4">
+            <select name="municipio" class="form-control"
+                    asp-items="ViewBag.Municipios">
+                <option value="0">Todos</option>
+            </select>
+        </div>
+    </div>
+
+    <input type="submit" value="Consultar"
+                   class="btn btn-primary" />
+</form>
+<hr/>
+
+@if (Model != null)
+{
+    <table class="table table-striped">
+        @foreach (MiListadoViewData item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.hospital</td>
+                <td>@item.camas</td>
+            </tr>
+        }
+    </table>
+}
+<div id="migrafica"></div>
+
+@section Scripts{
+    @if (Model != null) {
+    <script>
+        Highcharts.chart('migrafica', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Maximo camas'
+            },
+            xAxis: {
+                categories: [
+                    @foreach (MiListadoViewData item in Model)
+                    {
+                        <text>
+                            '@item.hospital',
+                        </text>
+                    }
+                ],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Camas',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' camas'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Camas',
+                data: [
+                        @foreach (MiListadoViewData item in Model)
+                        {
+                            <text>
+                                @item.camas,
+                            </text>
+                        }
+                    ]
+            }]
+        });
+    </script>
+    }
+}

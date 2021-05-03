@@ -3,11 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demostracion", "Demostracion\Demostracion.csproj", "{0C570098-1B87-4507-B476-AD1D48ABB9BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demostracion", "Demostracion\Demostracion.csproj", "{0C570098-1B87-4507-B476-AD1D48ABB9BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{E50DC7AE-6BF7-402F-8BED-5EF26E29832B}"
 	ProjectSection(SolutionItems) = preProject
-		20210429_Scripts.sql = 20210429_Scripts.sql
+		20210429_Scripts1.sql = 20210429_Scripts1.sql
+		20210429_Scripts2.sql = 20210429_Scripts2.sql
 	EndProjectSection
 EndProject
 Global
