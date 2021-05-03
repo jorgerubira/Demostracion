@@ -1,6 +1,12 @@
 ﻿@using Demostracion.ViewData
 @model List<MiListadoViewData>
 
+<form asp-action="Index" method="get">
+    <input name="anio" class="form-control" />
+    <input type="submit" value="Consultar" 
+           class="btn btn-primary" />
+</form>
+<hr/>
 
 <table class="table table-striped">
     @foreach (MiListadoViewData item in Model)
@@ -14,7 +20,7 @@
 </table>
 <div id="migrafica"></div>
 
-@section Scripts{ 
+@section Scripts{
     <script>
         Highcharts.chart('migrafica', {
             chart: {

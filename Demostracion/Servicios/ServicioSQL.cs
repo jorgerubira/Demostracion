@@ -11,9 +11,14 @@ namespace Demostracion
 {
     public class ServicioSQL
     {
-        public List<Tipo> EjecutarSQL<Tipo>(Contexto contexto, string sql, Func<DbDataReader, Tipo> leerRegistro, Array parametros = null)
+        public List<Tipo> EjecutarSQL<Tipo>(Contexto contexto, 
+                                    string sql, 
+                                    Func<DbDataReader, Tipo> leerRegistro, 
+                                    Array parametros = null)
         {
-            using(DbCommand comando = contexto.Database.GetDbConnection().CreateCommand())
+            using(DbCommand comando = contexto.Database
+                                        .GetDbConnection()
+                                        .CreateCommand())
             {
                 comando.CommandText = sql;
                 comando.CommandType = CommandType.Text;
