@@ -2,9 +2,26 @@
 @model List<MiListadoViewData>
 
 <form asp-action="Index" method="get">
-    <input name="anio" class="form-control" />
-    <input type="submit" value="Consultar" 
-           class="btn btn-primary" />
+    <div class="row">
+        <div class="col-2">
+            Año:
+        </div>
+        <div class="col-2">
+            <input name="anio" class="form-control" value="@ViewBag.Anio" />
+        </div>
+        <div class="col-2">
+            Municipio:
+        </div>
+        <div class="col-4">
+            <select name="municipio" class="form-control"
+                    asp-items="ViewBag.Municipios">
+                <option value="0">Todos</option>
+            </select>
+        </div>
+    </div>
+
+            <input type="submit" value="Consultar"
+                   class="btn btn-primary" />
 </form>
 <hr/>
 
