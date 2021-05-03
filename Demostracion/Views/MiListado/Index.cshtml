@@ -1,0 +1,87 @@
+﻿@using Demostracion.ViewData
+@model List<MiListadoViewData>
+
+
+<table class="table table-striped">
+    @foreach (MiListadoViewData item in Model)
+    {
+        <tr>
+            <td>@item.id</td>
+            <td>@item.hospital</td>
+            <td>@item.camas</td>
+        </tr>
+    }
+</table>
+<div id="migrafica"></div>
+
+@section Scripts{ 
+    <script>
+        Highcharts.chart('migrafica', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Maximo camas'
+            },
+            xAxis: {
+                categories: [
+                    @foreach (MiListadoViewData item in Model)
+                    {
+                        <text>
+                            '@item.hospital',
+                        </text>
+                    }
+                ],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Camas',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' camas'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Camas',
+                data: [
+                        @foreach (MiListadoViewData item in Model)
+                        {
+                            <text>
+                                @item.camas,
+                            </text>
+                        }
+                    ]
+            }]
+        });
+    </script>
+}
