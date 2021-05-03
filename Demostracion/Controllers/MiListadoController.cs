@@ -22,6 +22,15 @@ namespace Demostracion.Controllers
             _sql = sql;
         }
 
+        public IActionResult Index()
+        {
+            ViewBag.Municipios = new SelectList(_context.Municipios,
+                                                "id", "municipio");
+            return View();
+        }
+
+
+        [HttpPost]
         public IActionResult Index(int? anio, int? municipio)
         {
 

@@ -1,7 +1,7 @@
 ﻿@using Demostracion.ViewData
 @model List<MiListadoViewData>
 
-<form asp-action="Index" method="get">
+<form asp-action="Index">
     <div class="row">
         <div class="col-2">
             Año:
@@ -20,24 +20,28 @@
         </div>
     </div>
 
-            <input type="submit" value="Consultar"
+    <input type="submit" value="Consultar"
                    class="btn btn-primary" />
 </form>
 <hr/>
 
-<table class="table table-striped">
-    @foreach (MiListadoViewData item in Model)
-    {
-        <tr>
-            <td>@item.id</td>
-            <td>@item.hospital</td>
-            <td>@item.camas</td>
-        </tr>
-    }
-</table>
+@if (Model != null)
+{
+    <table class="table table-striped">
+        @foreach (MiListadoViewData item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.hospital</td>
+                <td>@item.camas</td>
+            </tr>
+        }
+    </table>
+}
 <div id="migrafica"></div>
 
 @section Scripts{
+    @if (Model != null) {
     <script>
         Highcharts.chart('migrafica', {
             chart: {
@@ -107,4 +111,5 @@
             }]
         });
     </script>
+    }
 }
