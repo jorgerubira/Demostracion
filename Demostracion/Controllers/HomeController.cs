@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Demostracion.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Demostracion.Controllers
 {
@@ -20,6 +21,17 @@ namespace Demostracion.Controllers
 
         public IActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Nombre")))
+            {
+                HttpContext.Session.SetString("Nombre", "The Doctor");
+                HttpContext.Session.SetInt32("Edad", 773);
+            }
+
+            HttpContext.Session.SetInt32("Edad", HttpContext.Session.GetInt32("Edad").Value + 1);
+            var name = HttpContext.Session.GetString("Nombre");
+            var age = HttpContext.Session.GetInt32("Edad");
+            ViewBag.name = name;
+            ViewBag.age = age;
             return View();
         }
 

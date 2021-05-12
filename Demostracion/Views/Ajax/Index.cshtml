@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="row">
+    <div class="col-2">
+        <select id="Prov" onchange="CambiaProvincia()"  asp-items="ViewBag.Provincias" class="form-control">
+            <option value="0">(Todos)</option>
+        </select>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-6" id="panel1">
+        Listado 1
+    </div>
+    <div class="col-6" id="panel2">
+        Listado 2
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-6" id="panel3">
+        Listado 3
+    </div>
+    <div class="col-6" id="panel4">
+        Listado 4
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        function refrescarListado1() {
+            $.ajax({
+                url: '/Ajax/Listado1',
+                data: {
+                    ProvinciaId: $("#Prov").val()
+                },
+                success: function ( htmlPartial ) {
+                    $('#panel1').html( htmlPartial );
+                }
+            });
+        }
+
+        function CambiaProvincia() {
+            refrescarListado1();
+        }
+
+        //Se ejecuta cuando inicial la ventana al principio
+        $(document).ready(function () {
+            refrescarListado1();
+        })
+
+    </script>
+}
+

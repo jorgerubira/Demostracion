@@ -31,22 +31,22 @@ namespace Demostracion.Controllers
 
 
         [HttpPost]
-        public IActionResult Index(int? anio, int? municipio)
+        public IActionResult Index(MiListadoParam p)
         {
 
             string sql= " SELECT h.id, h.hospital, ifnull(MAX(camas_uci_ocupadas),0) " +
                         " FROM cov_h_camas c "+
                         " INNER JOIN cov_m_hospitales h ON(c.id_hospital= h.id) " +
                         " WHERE 1=1 " +
-                        (anio!=null ? " AND year(fecha) = @anio " : "")  +
-                        (municipio != null && municipio!=0 ? " AND h.id_municipio = @municipio ": "") +
+                        (p.anio!=null ? " AND year(fecha) = @anio " : "")  +
+                        (p.municipio != null && p.municipio!=0 ? " AND h.id_municipio = @municipio ": "") +
                         " GROUP BY h.id, h.hospital ";
 
 
             MySqlParameter[] param =
             {
-                new MySqlParameter("@anio", anio),
-                new MySqlParameter("@municipio", municipio),
+                new MySqlParameter("@anio", p.anio),
+                new MySqlParameter("@municipio", p.municipio),
             };
 
             List<MiListadoViewData> lista= _sql.EjecutarSQL<MiListadoViewData>(
@@ -62,8 +62,8 @@ namespace Demostracion.Controllers
 
 
             ViewBag.Municipios = new SelectList(_context.Municipios, 
-                                                "id", "municipio", municipio);
-            ViewBag.Anio = anio;
+                                                "id", "municipio", p.municipio);
+            ViewBag.Anio = p.anio;
 
             return View(lista);
         }

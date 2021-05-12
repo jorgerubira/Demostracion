@@ -1,0 +1,25 @@
+﻿@model List<DemostracionViewData>
+@using Demostracion.ViewData
+@using Demostracion.Models
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Hospital
+        </th>
+        <th>
+            Camas
+        </th>
+    </tr>
+    @foreach (DemostracionViewData row in Model)
+    {
+        <tr>
+            <td>
+                @row.Hospital
+            </td>
+            <td>
+                @row.Camas
+            </td>
+        </tr>
+    }
+</table>

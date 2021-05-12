@@ -30,6 +30,8 @@ namespace Demostracion
             string v = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Contexto>(x => x.UseMySql(v));
             services.AddSingleton<ServicioSQL, ServicioSQL>();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +51,7 @@ namespace Demostracion
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
