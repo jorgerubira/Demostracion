@@ -25,21 +25,21 @@ namespace Demostracion.Controllers
         }
 
         // GET: Alumnoes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? idAlumno)
         {
-            if (id == null)
+            if (idAlumno == null)
             {
                 return NotFound();
             }
 
             var alumno = await _context.Alumnos
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == idAlumno);
             if (alumno == null)
             {
                 return NotFound();
             }
 
-            return View(alumno);
+            return PartialView(alumno);
         }
 
         // GET: Alumnoes/Create

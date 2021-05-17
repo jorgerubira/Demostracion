@@ -3,16 +3,60 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Información del alumno</h1>
+<hr/>
 
-<input type="button" onclick="ejecutar()" value="ejecutar" />
+<input id="idAlumno" value="1"/>
+<div class="row">
+    <div class="col-12" id="PanelAlumnos">
 
-<script>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6" id="PanelNotas">
 
-</script>
+    </div>
+    <div class="col-6" id="PanelTrabajos">
 
-@section Scripts{ 
+    </div>
+</div>
+
+
+@section Scripts{
     <script>
+        function refrescar(url, destino) {
+            $.ajax({
+                url: url,
+                data: {
+                    idAlumno: $('#idAlumno').val()
+                },
+                success: function (res) {
+                    $('#' + destino).html(res);
+                }
+            })
+        }
+        function abrirDialog(url) {
+            $.ajax({
+                url: url,
+                data: {
+                    idAlumno: $('#idAlumno').val()
+                },
+                success: function (res) {
+                    bootbox.dialog({
+                        message: res,
+                        size: 'large'
+                    });
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            refrescar('/Alumnos/Details', 'PanelAlumnos');
+            refrescar('/Notas/Index', 'PanelNotas');
+            refrescar('/Trabajos/Index', 'PanelTrabajos');
+        });
+        
+
         function ejecutar() {
             bootbox.dialog({
                 message: "Hola <b>que tal</b>" +

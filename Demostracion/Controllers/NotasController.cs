@@ -19,10 +19,10 @@ namespace Demostracion.Controllers
         }
 
         // GET: Notas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int idAlumno)
         {
-            var contexto = _context.Notas.Include(n => n.Alumno);
-            return View(await contexto.ToListAsync());
+            var contexto = _context.Notas.Where(x=>x.AlumnoId==idAlumno).Include(n => n.Alumno);
+            return PartialView(await contexto.ToListAsync());
         }
 
         // GET: Notas/Details/5
