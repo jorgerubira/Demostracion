@@ -18,5 +18,9 @@ namespace Demostracion.Models
         public virtual DbSet<Municipio> Municipios { get; set; }
         public virtual DbSet<Provincia> Provincias { get; set; }
 
+        public virtual DbSet<Alumno> Alumnos { get; set; }
+        public virtual DbSet<Nota> Notas { get; set; }
+        public virtual DbSet<Trabajo> Trabajos { get; set; }
+
     }
 }
