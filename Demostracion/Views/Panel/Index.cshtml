@@ -17,9 +17,12 @@
             bootbox.dialog({
                 message: "Hola <b>que tal</b>" +
                     "<i>muy bien</i>" +
-                    "<input type='button' value='Prueba' /> ",
+                    "<input type='button' onclick='cerrar()' value='Prueba' /> ",
                 size: "large"
             });
+        }
+        function cerrar() {
+            bootbox.hideAll();
         }
     </script>
 
