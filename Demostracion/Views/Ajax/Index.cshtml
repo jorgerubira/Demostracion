@@ -7,53 +7,86 @@
 
 <div class="row">
     <div class="col-2">
-        <select id="Prov" onchange="CambiaProvincia()"  asp-items="ViewBag.Provincias" class="form-control">
+        <select id="Prov" onchange="CambiaProvincia()" asp-items="ViewBag.Provincias" class="form-control">
+            <option value="0">(Todos)</option>
+        </select>
+    </div>
+    <div class="col-2" id="PanelParamHospital">
+        <select id="Hosp" onchange="CambiaHospital()" asp-items="ViewBag.Hospitales" class="form-control">
             <option value="0">(Todos)</option>
         </select>
     </div>
 </div>
-<hr />
-<div class="row">
-    <div class="col-6" id="panel1">
-        Listado 1
+    <hr />
+    <div class="row">
+        <div class="col-6" id="panel1">
+            Listado 1
+        </div>
+        <div class="col-6" id="panel2">
+            Listado 2
+        </div>
     </div>
-    <div class="col-6" id="panel2">
-        Listado 2
+    <hr />
+    <div class="row">
+        <div class="col-6" id="panel3">
+            Listado 3
+        </div>
+        <div class="col-6" id="panel4">
+            Listado 4
+        </div>
     </div>
-</div>
-<hr/>
-<div class="row">
-    <div class="col-6" id="panel3">
-        Listado 3
-    </div>
-    <div class="col-6" id="panel4">
-        Listado 4
-    </div>
-</div>
 
-@section Scripts{ 
-    <script>
-        function refrescarListado1() {
-            $.ajax({
-                url: '/Ajax/Listado1',
-                data: {
-                    ProvinciaId: $("#Prov").val()
-                },
-                success: function ( htmlPartial ) {
-                    $('#panel1').html( htmlPartial );
-                }
-            });
-        }
+    @section Scripts{
+        <script>
+            function refrescarListado1() {
+                $.ajax({
+                    url: '/Ajax/Listado1',
+                    data: {
+                        ProvinciaId: $("#Prov").val(),
+                        HospitalId: $('#Hosp').val(),
+                    },
+                    success: function (htmlPartial) {
+                        $('#panel1').html(htmlPartial);
+                    }
+                });
+            }
 
-        function CambiaProvincia() {
-            refrescarListado1();
-        }
+            function refrescarSelectHospital() {
+                $.ajax({
+                    url: '/Ajax/SelectHospitales',
+                    data: {
+                        ProvinciaId: $("#Prov").val(),
+                    },
+                    success: function (htmlPartial) {
+                        $('#PanelParamHospital').html(htmlPartial);
+                    }
+                })
+            }
 
-        //Se ejecuta cuando inicial la ventana al principio
-        $(document).ready(function () {
-            refrescarListado1();
-        })
+            function CambiarListados() {
+                refrescarListado1();
+                refrescarListado2();
+                refrescarListado3();
+                refrescarListado4();
 
-    </script>
-}
+            }
+
+            function CambiaProvincia() {
+                CambiarListados();
+                refrescarSelectHospital();
+            }
+
+            function CambiaHospital() {
+                CambiarListados();
+            }
+
+            
+
+            //Se ejecuta cuando inicial la ventana al principio
+            $(document).ready(function () {
+                refrescarListado1();
+            })
+
+        </script>
+    }
 

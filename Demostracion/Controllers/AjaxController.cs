@@ -6,6 +6,7 @@ using Demostracion.Models;
 using Demostracion.ViewData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 
 namespace Demostracion.Controllers
@@ -24,8 +25,27 @@ namespace Demostracion.Controllers
         public IActionResult Index()
         {
             ViewBag.Provincias = new SelectList(_context.Provincias, "id", "provincia");
+            ViewBag.Hospitales = new SelectList(_context.Hospitales, "id", "hospital");
 
             return View();
+        }
+
+        public IActionResult SelectHospitales(int ProvinciaId = 0)
+        {
+            if (ProvinciaId == 0)
+            {
+                ViewBag.Hospitales = new SelectList(_context.Hospitales, "id", "hospital");
+            }
+            else
+            {
+                ViewBag.Hospitales = new SelectList(_context
+                                    .Hospitales
+                                    .Include(x=>x.municipio)
+                                    .Where(x=>x.municipio.provinciaId==ProvinciaId), 
+                                    "id", "hospital");
+            }
+
+            return PartialView();
         }
 
         public IActionResult Listado1(int ProvinciaId = 0, int HospitalId = 0)

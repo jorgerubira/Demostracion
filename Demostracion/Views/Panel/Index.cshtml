@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<input type="button" onclick="ejecutar()" value="ejecutar" />
+
+<script>
+
+</script>
+
+@section Scripts{ 
+    <script>
+        function ejecutar() {
+            bootbox.dialog({
+                message: "Hola <b>que tal</b>" +
+                    "<i>muy bien</i>" +
+                    "<input type='button' value='Prueba' /> ",
+                size: "large"
+            });
+        }
+    </script>
+
+}
+
