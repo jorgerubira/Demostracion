@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" id="Formulario">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -23,13 +23,10 @@
                 <input asp-for="Valor" class="form-control" />
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="AlumnoId"/>
             <div class="form-group">
-                <label asp-for="AlumnoId" class="control-label"></label>
-                <select asp-for="AlumnoId" class="form-control" asp-items="ViewBag.AlumnoId"></select>
-                <span asp-validation-for="AlumnoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="button" onclick="EnviarFormulario('/Notas/Edit')" 
+                       value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -45,10 +45,14 @@ namespace Demostracion.Controllers
         }
 
         // GET: Notas/Create
-        public IActionResult Create()
+        public IActionResult Create(int idAlumno)
         {
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Id");
-            return View();
+            //ViewData["AlumnoId"] = new SelectList(_context.Alumnos.Where(x=>x.Id==idAlumno), "Id", "Nombre");
+            //return PartialView();
+            Nota n = new Nota();
+            n.AlumnoId = idAlumno;
+            return PartialView(n);
+
         }
 
         // POST: Notas/Create
@@ -65,7 +69,7 @@ namespace Demostracion.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Id", nota.AlumnoId);
-            return View(nota);
+            return PartialView(nota);
         }
 
         // GET: Notas/Edit/5
@@ -82,7 +86,7 @@ namespace Demostracion.Controllers
                 return NotFound();
             }
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Id", nota.AlumnoId);
-            return View(nota);
+            return PartialView(nota);
         }
 
         // POST: Notas/Edit/5
@@ -118,7 +122,7 @@ namespace Demostracion.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "Id", "Id", nota.AlumnoId);
-            return View(nota);
+            return PartialView(nota);
         }
 
         // GET: Notas/Delete/5
@@ -137,7 +141,7 @@ namespace Demostracion.Controllers
                 return NotFound();
             }
 
-            return View(nota);
+            return PartialView(nota);
         }
 
         // POST: Notas/Delete/5

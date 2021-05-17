@@ -6,7 +6,11 @@
 <h1>Información del alumno</h1>
 <hr/>
 
-<input id="idAlumno" value="1"/>
+<input type="button" class="btn btn-primary" 
+       onclick="abrirDialog('/Alumnos/Index')"
+       value="Buscar"/>
+
+<input id="idAlumno" value="1" type="hidden"/>
 <div class="row">
     <div class="col-12" id="PanelAlumnos">
 
@@ -49,12 +53,33 @@
                 }
             })
         }
-
-        $(document).ready(function () {
+        function EnviarFormulario(url) {
+            $.ajax({
+                url: url,
+                method: 'post',
+                data: $('#Formulario').serialize(),
+                success: function (res) {
+                    RefrescarTodo();
+                    bootbox.hideAll();
+                }
+            })
+        }
+        function RefrescarTodo() {
             refrescar('/Alumnos/Details', 'PanelAlumnos');
             refrescar('/Notas/Index', 'PanelNotas');
             refrescar('/Trabajos/Index', 'PanelTrabajos');
+        }
+
+        function SeleccionaRegistro(id) {
+            $('#idAlumno').val(id);
+            RefrescarTodo();
+            bootbox.hideAll();
+        }
+
+        $(document).ready(function () {
+            RefrescarTodo();
         });
+
         
 
         function ejecutar() {
