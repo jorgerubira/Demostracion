@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Demostracion.Models.Alumno>
 
-<table class="table">
+<table class="table" id="tabla">
     <thead>
         <tr>
             <th>
@@ -23,3 +23,7 @@
 }
     </tbody>
 </table>
+
+<script>
+    $('#tabla').DataTable();
+</script>

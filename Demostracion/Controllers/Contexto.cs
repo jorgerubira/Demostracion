@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Demostracion.Models;
 
 namespace Demostracion.Models
 {
@@ -21,6 +22,8 @@ namespace Demostracion.Models
         public virtual DbSet<Alumno> Alumnos { get; set; }
         public virtual DbSet<Nota> Notas { get; set; }
         public virtual DbSet<Trabajo> Trabajos { get; set; }
+        public DbSet<Demostracion.Models.Users> Users { get; set; }
+        public DbSet<Demostracion.Models.UsersRoles> UsersRoles { get; set; }
 
     }
 }

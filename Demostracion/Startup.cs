@@ -25,13 +25,21 @@ namespace Demostracion
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("Auth")
+                    .AddCookie("Auth", x=>
+                    {
+                        x.Cookie.Name = "AuthCookie";
+                        x.LoginPath = "/Usuarios/Login";
+                        x.AccessDeniedPath = "/Usuarios/AccesoDenegado";
+                    });
+
             services.AddControllersWithViews();
 
             string v = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Contexto>(x => x.UseMySql(v));
             services.AddSingleton<ServicioSQL, ServicioSQL>();
-            services.AddDistributedMemoryCache();
-            services.AddSession();
+            /*services.AddDistributedMemoryCache();
+            services.AddSession();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,9 +58,14 @@ namespace Demostracion
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+
+
             app.UseRouting();
-            app.UseSession();
+
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            //app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

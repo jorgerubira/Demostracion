@@ -21,6 +21,7 @@ namespace Demostracion.Controllers
 
         public IActionResult Index()
         {
+            /*
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("Nombre")))
             {
                 HttpContext.Session.SetString("Nombre", "The Doctor");
@@ -31,7 +32,7 @@ namespace Demostracion.Controllers
             var name = HttpContext.Session.GetString("Nombre");
             var age = HttpContext.Session.GetInt32("Edad");
             ViewBag.name = name;
-            ViewBag.age = age;
+            ViewBag.age = age;*/
             return View();
         }
 
